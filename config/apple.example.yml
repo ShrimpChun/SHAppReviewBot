@@ -1,0 +1,25 @@
+# APPLE STORE CONNECT API PRIVATE .p8 KEY File Path
+api_key_path: './src/private-key.p8'
+
+# APPLE STORE CONNECT API PRIVATE KEY ID, for example 2X9R4HXF34
+api_key_id: ''
+
+# APPLE STORE CONNECT ISSUER ID, for example, 57246542-96fe-1a63-e053-0824d011072a
+issuer_id: ''
+
+# APP ID
+app_id: ''
+
+processors:
+  - SlackProcessor: # Slack Processor, resend App Review to Slack
+    class: 'SlackProcessor'
+    enable: true
+    slackTimeZoneOffset: '+09:00'
+    # Define how many review message in 1 slack message
+    slackAttachmentGroupByNumber: '1'
+     # Slack Bot Token, send slack message throught Slack Bot
+    slackBotToken: ''
+    # Slack Bot Token, send slack message throught Slack Bot. (recommended, first priority)
+    slackBotTargetChannel: ''
+    # Slack In-Comming WebHook URL, Send slack message throught In-Comming WebHook, not recommended, deprecated.
+    slackInCommingWebHookURL: ''

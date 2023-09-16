@@ -1,0 +1,40 @@
+name: 'SHAppReviewBot'
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * * # Trigger the bot at 9 AM every morning
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Setup Node.js Environement
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('package-lock.json') }}
+      - name: Install Packages
+        run: test -d node_modules && echo "node_module exists" || npm ci
+      - name: Execute Bot Action
+        run: node ./index.js
+      # Commit all changed files back to the repository
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update latest check timestamp log file"
+          commit_user_name: "Shrimp Hsieh"
+          commit_user_email: "shrimp.hsieh@gmail.com"
+          commit_author: ShrimpHsieh <shrimp.hsieh@gmail.com>
