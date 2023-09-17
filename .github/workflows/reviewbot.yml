@@ -1,8 +1,9 @@
 name: 'SHAppReviewBot'
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 0 * * * # Trigger the bot at 9 AM every morning
+  # Please unmark the scheduled trigger event after all settings are completed
+  # schedule:
+  #   - cron: 0 0 * * * # Trigger the bot at 9 AM every morning
 
 jobs:
   init:
